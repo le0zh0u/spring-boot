@@ -13,15 +13,15 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 /**
  * Created by zhouchunjie on 16/7/28.
  */
-//@Configuration
-//@EnableWebMvc
-//@ComponentScan("com.leozhou.demo.thymeleaf")
-public class MyMvcConfig extends WebMvcConfigurerAdapter{
+@Configuration
+@EnableWebMvc
+@ComponentScan("com.leozhou.demo.thymeleaf")
+public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public TemplateResolver templateResolver() {
         TemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setPrefix("classpath:/templates/");
+        templateResolver.setPrefix("classpath:/templates");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
 
