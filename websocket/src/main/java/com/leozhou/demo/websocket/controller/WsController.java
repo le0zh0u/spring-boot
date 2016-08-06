@@ -16,6 +16,6 @@ public class WsController {
     @SendTo("/topic/getResponse")//当服务端有消息时,会对订阅了@SendTo中的路径的浏览器发送消息
     public ResponseDto say(RequestMessageDto message) throws Exception {
         Thread.sleep(3000);
-        return new ResponseDto("Welcome" + message.getName() + "!");
+        return new ResponseDto("Welcome " + message.getName() + "!");
     }
 }
