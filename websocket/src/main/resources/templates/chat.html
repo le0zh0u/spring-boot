@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>聊天室</title>
+    <script src="//cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+    <script th:src="@{stomp.js}"></script>
+    <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<p>
+    聊天室
+</p>
+<form id="chatForm">
+    <textarea rows="4" cols="60" name="text"></textarea>
+    <input type="submit"/>
+</form>
+
+<script th:inline="javascript">
+    $('#chatForm').submit(function (e) {
+        e.preventDefault();
+        var text = $('#chatForm').find('textarea[name="text"]').val();
+        sendSpittle(text);
+    });
+
+    var sock = new SockJS("/entpointChat");
+    var stomp = Stomp.over(sock);
+    stomp.connect('guest', 'guest', function (frame) {
+        stomp.subscribe("/user/queue/notifications", handleNotification);
+    });
+
+    function handleNotification(message) {
+        $('#output').append("<br>Received: " , message.body + "</br>");
+    }
+
+    function sendSpittle(text) {
+        stomp.send("/chat", {}, text);
+    }
+
+    $('#stop').click(function () {
+        sock.close();
+    })
+</script>
+<div id="output"/>
+</body>
+</html>
