@@ -33,7 +33,7 @@ public class WsController {
             //通过messagingTemplate.convertAndSendToUser向用户发送消息,第一个参数是接受消息的用户,第二个是浏览器订阅的地址,第三个是消息本身
             messagingTemplate.convertAndSendToUser("abcd", "/queue/notifications", principal.getName() + "-send:" + msg);
         } else {
-            messagingTemplate.convertAndSendToUser("abc", "/queue/notifications", principal.getName() + "-send" + msg);
+            messagingTemplate.convertAndSendToUser("abc", "/queue/notifications", principal.getName() + "-send:" + msg);
         }
     }
 }

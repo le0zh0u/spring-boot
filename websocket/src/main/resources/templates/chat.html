@@ -23,7 +23,7 @@
         sendSpittle(text);
     });
 
-    var sock = new SockJS("/entpointChat");
+    var sock = new SockJS("/endpointChat");
     var stomp = Stomp.over(sock);
     stomp.connect('guest', 'guest', function (frame) {
         stomp.subscribe("/user/queue/notifications", handleNotification);
